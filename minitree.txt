@@ -1,0 +1,67 @@
+{{{[[][](()))
+(
+
+public class Trie{
+	public Nodo raiz;	
+	public Trie(){
+		raiz=new Nodo();
+	}
+
+	public Trie(char dato){
+		raiz=new Nodo(dato);
+	}
+}
+
+public class Nodo{
+	public char dato;
+	public Nodo[] hijos;
+	public int cont;	
+
+	public Nodo(){
+		dato=null;
+		hijos[]=new Nodo[2];
+		cont=0;
+	}	
+
+	public Nodo(char dato){
+		this.dato=dato;
+		hijos[]=new Nodo[2];
+		cont=0;
+	}
+	
+	public void agregaHijo(char dato){
+		Nodo hijo=new Nodo(dato);
+		if(cont>=hijos.length){
+			expande();
+		}	
+		hijos[cont]=hijo;
+		cont++;			
+	}
+	
+	public void quitaHijo(int indice){
+		int i=indicie;
+		while(i+1<hijos.length&&hijos[i]!=null){
+			hijos[i]=hijos[i+1];
+			i++;
+		}
+		cont--;
+		hijos[i]=null;
+	}
+
+	public char getHijo(int indice){
+		char res;
+		if(indice<hijos.lenght){
+			res=hijos[indice];
+		
+		}
+		return res;
+	}	
+
+	public void expande(){
+		Nodo[] aux=new Nodo[hijos.length*2];
+		for(int i=0; i<hijos.length;i++){
+			aux[i]=hijos[i];
+		}		
+		hijos=aux;
+	}
+}

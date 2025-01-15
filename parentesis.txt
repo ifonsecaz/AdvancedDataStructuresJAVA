@@ -1,0 +1,192 @@
+public static void agregaAbre(String s, Stack<Character> pila, int cont, int contP,int contB,int contC, char symb){
+	Stack<Character> aux= new Stack<Character>();
+	int c1=0;
+	int c2=0;
+	char o1;
+	char o2;
+	char o11;
+	char o22;
+	char c;
+
+	switch(symb){
+		case '{':
+		    o1='[';
+		    o11=']';
+		    o2='(';
+                    o22=')';
+		    c='}';
+		    contC++;
+                    break;
+                case '[':
+                    o1='{';
+		    o11='}';
+		    o2='(';
+                    o22=')';
+		    c=']';
+ 		    contB++;
+                    break;
+                default:
+		    o1='[';
+		    o11=']';
+		    o2='{';
+                    o22='}';
+		    c=')';
+		    contP++;
+                    break;
+	}
+	int i=cont;
+	while(!pila.isEmpty()||c1>=0||c2>=0){ //corregir recorro el arreglo, no siempre puedo hacer pop  
+		aux.push(pila.pop());
+		char lastv=aux.peek();
+		if(lastv==c||lastv==symb||lastv==o1||lastv==o2){
+			String n=s.substring(0,i)+symb+s.substring(i,s.length());
+			while(!aux.isEmpty()){
+				pila.push(aux.pop());
+			}
+			isBalanced(n,p,cont+2,contP,contB,contC);			
+		}
+		else{
+			if(lastv==o11){
+				c1--;
+			}else{
+				if(lastv==o22){
+					c2--;
+				}
+			}
+		}
+		if(!pila.isEmpty()){
+			if(pila.peek==o1){
+				c1++;
+			}
+			if(pila.peek==o2){	
+				c2++;
+			}
+		}
+	}
+	while(!aux.isEmpty()){
+		pila.push(aux.pop());
+	}
+}
+
+public static void isBalancedR(String s, Stack<Character> pila, int cont, int contP,int contB,int contC) {
+	if(cont>=s.length()){
+		if(contP!=0||contB!=0||contC!=0){
+        	    res=false;
+	        }
+		System.out.println(s);
+	}
+	else{
+		char val=s.charAt(cont);
+            switch (val){
+                case '{':
+                    contC++; 
+                    pil.push(val);
+                    break;
+                case '[':
+                    contB++;
+                    pil.push(val);
+                    break;
+                case '(':
+                    contP++;
+                    pil.push(val);
+                    break;
+                case '}':
+		    pil.push(val);
+                    contC--;
+                    if(contC<0||pil.peek()!='{'){
+                        res=false;
+                    }
+                    break;
+                case ']':
+		    pil.push(val);
+                    contB--;
+                    if(contB<0||pil.peek()!='['){
+                        res=false;
+                    }
+                    break;
+                case ')':
+		    pil.push(val);
+                    contP--;
+                    if(contP<0||pil.peek()!='('){
+                        res=false;
+                    }
+                    break;
+                default:
+                    break;
+		}
+	           
+		isBalancedR(s,pila,cont+1;contP,contB,contC);        
+		        
+     
+	}	
+}
+
+public static void isBalancedC(String s) {
+    // Write your code here
+        boolean res=true;
+        Stack<Character> pil=new Stack<Character>();
+    	isBalancedR(s,pil,0,0,0,0);    
+    
+
+}
+
+
+public static String isBalanced(String s) {
+    // Write your code here
+        boolean res=true;
+        Stack<Character> pil=new Stack<Character>();
+        int i=0;
+        int contP=0;
+        int contB=0;
+        int contC=0;
+        while(i<s.length()&&res){
+            char val=s.charAt(i);
+            switch (val){
+                case '{':
+                    contC++; 
+                    pil.push(val);
+                    break;
+                case '[':
+                    contB++;
+                    pil.push(val);
+                    break;
+                case '(':
+                    contP++;
+                    pil.push(val);
+                    break;
+                case '}':
+                    contC--;
+                    if(contC<0||pil.pop()!='{'){
+                        res=false;
+                    }
+                    break;
+                case ']':
+                    contB--;
+                    if(contB<0||pil.pop()!='['){
+                        res=false;
+                    }
+                    break;
+                case ')':
+                    contP--;
+                    if(contP<0||pil.pop()!='('){
+                        res=false;
+                    }
+                    break;
+                default:
+                    break;
+                
+            }
+            i++;
+        }
+        if(contP!=0||contB!=0||contC!=0){
+            res=false;
+        }
+        if(res){
+            return "YES";
+        }
+        else{
+            return "NO";
+        }
+    }
+
+}
